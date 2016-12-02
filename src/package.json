@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "classnames": "^2.2.5",
+    "react-rangeslider": "^1.0.9",
     "tone": "^0.7.1",
     "webpack": "^1.13.2"
   },

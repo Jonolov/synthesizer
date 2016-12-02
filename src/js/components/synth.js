@@ -1,5 +1,6 @@
 import React from 'react';
 import Tone from 'tone';
+import Slider from 'react-rangeslider';
 
 class Synth extends React.Component {
     constructor(props) {
@@ -18,10 +19,10 @@ class Synth extends React.Component {
                 0: 0
             },
             volumes: {
-                0: -20
+                0: -25
             },
             waveforms: {
-                0: 1
+                0: 0
             }
         };
         this.setDetune = this.setDetune.bind(this);
@@ -40,8 +41,10 @@ class Synth extends React.Component {
     }
 
     setVol(osc, v) {
+        console.log(this.state.volumes);
         let volumes = this.state.volumes;
         volumes[osc] = v;
+        console.log('Vol = ' + v);
         this.setState({
             volumes: volumes
         });
@@ -76,15 +79,20 @@ class Synth extends React.Component {
 
         return (
             <div className='synth'>
-                <Oscillator frequency={440}
-                    detune={ this.state.detunes[0] }
-                    waveform={ this.state.waveforms[0] }
-                    volume={ this.state.volumes[0] }
-                    type={ 'square' }
-                    envelope={this.envelope}
-                    playing={this.state.playing}>
-                </Oscillator>
-                <Selector onSelect={this.setWav}/>
+                <div className='synth__controls'>
+                    <Oscillator frequency={440}
+                        detune={ this.state.detunes[0] }
+                        waveform={ this.state.waveforms[0] }
+                        volume={ this.state.volumes[0] }
+                        type={ 'square' }
+                        envelope={this.envelope}
+                        playing={this.state.playing}>
+                    </Oscillator>
+                    <Selector onSelect={this.setWav}/>
+                    <Volume onVolChange={this.setVol}/>
+                    <Detune onDetuneChange={this.setDetune}/>
+                </div>
+
                 <Keyboard onDown={this.startNote} onUp={this.stopNote}/>
             </div>
         );
@@ -152,35 +160,142 @@ class Selector extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = ({
+            selectedOption: '0'
+        });
+
         this.handleSelect = this.handleSelect.bind(this);
     }
 
     handleSelect(e) {
         console.log('e:' + e.target.id);
         this.props.onSelect(0, e.target.id);
+        this.setState({
+            selectedOption: e.target.id
+        });
     }
 
     render() {
         return (
             <div className="synth__selector">
-                <ul>
-                    <li>
-                        <input type='radio' id='0' name='selector' onClick={this.handleSelect}/>
-                        <label for='0'>Sine</label>
-                    </li>
-                    <li>
-                        <input type='radio' id='1' name='selector' onClick={this.handleSelect}/>
-                        <label for="1">Square</label>
-                    </li>
-                    <li>
-                        <input type='radio' id='2' name='selector' onClick={this.handleSelect}/>
-                        <label for="2">Triangle</label>
-                    </li>
-                    <li>
-                        <input type='radio' id='3' name='selector' onClick={this.handleSelect}/>
-                        <label for="3">Sawtooth</label>
-                    </li>
-                </ul>
+                <div>
+                    <input
+                        className='synth__radio'
+                        type='radio'
+                        id='0'
+                        name='selector'
+                        onClick={this.handleSelect}
+                        checked={this.state.selectedOption === '0'} />
+                    <label className='synth__radiolabel' htmlFor='0'>
+                        <div className='synth__labeltext'>Sine</div>
+                    </label>
+                </div>
+                <div>
+                    <input
+                        className='synth__radio'
+                        type='radio'
+                        id='1'
+                        name='selector'
+                        onClick={this.handleSelect}
+                        checked={this.state.selectedOption === '1'}/>
+                    <label className='synth__radiolabel' htmlFor="1">
+                        <div className='synth__labeltext'>Square</div>
+                    </label>
+                </div>
+                <div>
+                    <input
+                        className='synth__radio'
+                        type='radio'
+                        id='2'
+                        name='selector'
+                        onClick={this.handleSelect}
+                        checked={this.state.selectedOption === '2'}/>
+                    <label className='synth__radiolabel' htmlFor="2">
+                        <div className='synth__labeltext'>Triangle</div>
+                    </label>
+                </div>
+                <div>
+                    <input
+                        className='synth__radio'
+                        type='radio'
+                        id='3'
+                        name='selector'
+                        onClick={this.handleSelect}
+                        checked={this.state.selectedOption === '3'}/>
+                    <label className='synth__radiolabel' htmlFor="3">
+                        <div className='synth__labeltext'>Sawtooth</div>
+                    </label>
+                </div>
+            </div>
+        );
+    }
+}
+
+class Volume extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            value: -25 /** Start value **/
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(value) {
+        this.setState({
+            value: value
+        });
+
+        this.props.onVolChange(0, value);
+    }
+
+    render() {
+        let { value } = this.state;
+        return (
+            <div>
+                <div className='rangeslider__label'>Volume</div>
+                <Slider
+                    value={value}
+                    orientation="vertical"
+                    onChange={this.handleChange}
+                    min={-50}
+                    max={0}
+                />
+            </div>
+        );
+    }
+}
+
+class Detune extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            value: 0 /** Start value **/
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(value) {
+        this.setState({
+            value: value
+        });
+
+        this.props.onDetuneChange(0, value);
+    }
+
+    render() {
+        let { value } = this.state;
+        return (
+            <div>
+                <div className='rangeslider__label'>Detune</div>
+                <Slider
+                    value={value}
+                    orientation="vertical"
+                    onChange={this.handleChange}
+                    min={-100}
+                    max={100}
+                />
             </div>
         );
     }
@@ -212,7 +327,7 @@ class Oscillator extends React.Component {
     }
     render() {
         return (
-            <div className="oscillator">
+            <div className="synth__oscillator">
                 <br/>
                 { this.props.children }
             </div>
