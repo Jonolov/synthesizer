@@ -1,14 +1,23 @@
 .synth {
-    width: 100%;
+    width: 600px;
+    background-color: #4A646C;
     display: flex;
-    align-content: space-around;
-    align-content: center;
+    flex-direction: column;
 
     &__keyboard {
 
         height: 300px;
-        background-color: red;
+        margin: 0 auto;
+        //background-color: red;
         display: flex;
+    }
+
+    &__controls {
+        display: flex;
+    }
+
+    &__oscillator {
+        display: none;
     }
 
     &__key {
@@ -39,5 +48,27 @@
         li {
             list-style: none;
         }
+    }
+
+    &__radio {
+        display: none;
+    }
+
+    &__radiolabel {
+        margin: 5px;
+        display: flex;
+        font-size: 12px;
+        background-color: #FAEBD7;
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+
+        .synth__radio:checked ~ & {
+            background-color: #f9fc33;
+        }
+    }
+
+    &__labeltext {
+        margin: auto;
     }
 }
