@@ -10,8 +10,6 @@ class Envelopes extends React.Component {
             sustain: this.props.sustain,
             release: this.props.release /** Start value **/
         };
-
-        console.log(this.props.attack);
     }
 
     handleAttack = (value) => {

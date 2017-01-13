@@ -14,7 +14,8 @@ class Synth extends React.Component {
                 0: 440
             },
             detunes: {
-                0: 0
+                0: 0,
+                1: 0
             },
             volumes: {
                 0: -25
@@ -126,6 +127,14 @@ class Synth extends React.Component {
                         envelope={this.envelope}
                         playing={this.state.playing}>
                     </Oscillator>
+                    <Oscillator frequency={440}
+                        detune={ this.state.detunes[1] }
+                        waveform={ this.state.waveforms[0] }
+                        volume={ this.state.volumes[0] }
+                        type={ 'square' }
+                        envelope={this.envelope}
+                        playing={this.state.playing}>
+                    </Oscillator>
                     <Selector onSelect={this.setWav}/>
                     <Volume onVolChange={this.setVol}/>
                     <Detune onDetuneChange={this.setDetune}/>
@@ -205,8 +214,8 @@ class Detune extends React.Component {
                     value={value}
                     orientation="vertical"
                     onChange={this.handleChange}
-                    min={-100}
-                    max={100}
+                    min={-700}
+                    max={700}
                 />
             </div>
         );

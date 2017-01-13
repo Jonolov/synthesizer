@@ -6,9 +6,7 @@ class Oscillator extends React.Component {
     constructor(props) {
         super(props);
         let env = this.props.envelope;
-        console.log('Env :' + JSON.stringify(env));
 
-        console.log('In OSC: ' + JSON.stringify(this.props.envelope.attack));
         this.waves = ['sine', 'square', 'triangle', 'sawtooth'];
 
         this.tone = new Tone.Oscillator({
