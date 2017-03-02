@@ -21,7 +21,8 @@ class Synth extends React.Component {
                 0: -25
             },
             waveforms: {
-                0: 0
+                0: 0,
+                1: 0
             },
             attack: 0.41,
             decay: 5,
@@ -54,6 +55,7 @@ class Synth extends React.Component {
     }
 
     setDetune = (osc, v) => {
+        console.log('osc ' + osc )
         let detunes = this.state.detunes;
         detunes[osc] = v;
         this.setState({
@@ -71,7 +73,8 @@ class Synth extends React.Component {
     }
 
     setWav = (osc, v) => {
-        let waveforms = this.state.waveforms;
+        let state = Object.assign({}, this.state);
+        let waveforms = state.waveforms;
         waveforms[osc] = v;
 
         this.setState({
@@ -116,28 +119,40 @@ class Synth extends React.Component {
     }
 
     render() {
+
+        console.log(this.state.waveforms);
+
         return (
             <div className='synth'>
                 <div className='synth__controls'>
-                    <Oscillator frequency={440}
-                        detune={ this.state.detunes[0] }
-                        waveform={ this.state.waveforms[0] }
-                        volume={ this.state.volumes[0] }
-                        type={ 'square' }
-                        envelope={this.envelope}
-                        playing={this.state.playing}>
-                    </Oscillator>
-                    <Oscillator frequency={440}
-                        detune={ this.state.detunes[1] }
-                        waveform={ this.state.waveforms[0] }
-                        volume={ this.state.volumes[0] }
-                        type={ 'square' }
-                        envelope={this.envelope}
-                        playing={this.state.playing}>
-                    </Oscillator>
-                    <Selector onSelect={this.setWav}/>
-                    <Volume onVolChange={this.setVol}/>
-                    <Detune onDetuneChange={this.setDetune}/>
+                    <div className='synth__mastercontrols'>
+                        <Volume onVolChange={this.setVol}/>
+                        <Detune onDetuneChange={this.setDetune}/>
+                    </div>
+
+                    <div className='synth__oscillatorgroup'>
+                        <Oscillator frequency={440}
+                            detune={ this.state.detunes[0] }
+                            waveform={ this.state.waveforms[0] }
+                            volume={ this.state.volumes[0] }
+                            type={ 'square' }
+                            envelope={this.envelope}
+                            playing={this.state.playing}>
+                        </Oscillator>
+                        <Selector onSelect={this.setWav} oscillatorNr={0}/>
+                    </div>
+                    <div className='synth__oscillatorgroup'>
+                        <Oscillator frequency={440}
+                            detune={ this.state.detunes[1] }
+                            waveform={ this.state.waveforms[1] }
+                            volume={ this.state.volumes[0] }
+                            type={ 'square' }
+                            envelope={this.envelope}
+                            playing={this.state.playing}>
+                        </Oscillator>
+                        <Selector onSelect={this.setWav} oscillatorNr={1}/>
+                    </div>
+
                     <Envelopes
                         onAttackChange={this.setAttack}
                         onDecayChange={this.setDecay}
@@ -175,7 +190,7 @@ class Volume extends React.Component {
     render() {
         let { value } = this.state;
         return (
-            <div>
+            <div className='synth__slider'>
                 <div className='rangeslider__label'>Volume</div>
                 <Slider
                     value={value}
@@ -208,7 +223,7 @@ class Detune extends React.Component {
     render() {
         let { value } = this.state;
         return (
-            <div>
+            <div className='synth__slider'>
                 <div className='rangeslider__label'>Detune</div>
                 <Slider
                     value={value}

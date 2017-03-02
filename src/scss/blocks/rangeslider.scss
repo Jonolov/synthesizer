@@ -24,7 +24,7 @@
         text-transform: uppercase;
         font-size: 12px;
         padding: 5px;
-        color: white;
+        color: #ede5d4;
     }
 }
 
@@ -32,8 +32,8 @@
 .rangeslider-vertical {
     margin: 20px auto;
     height: 150px;
-    max-width: 10px;
-    background: none;
+    max-width: 5px;
+    background: black;
     .rangeslider__fill {
         width: 100%;
         background: #27ae60;
@@ -41,9 +41,9 @@
         bottom: 0;
     }
     .rangeslider__handle {
-        width: 30px;
+        width: 20px;
         height: 10px;
-        left: -10px;
+        left: -8px;
 
         &:active {
             box-shadow: none;

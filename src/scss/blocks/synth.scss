@@ -1,78 +1,41 @@
 .synth {
-    width: 600px;
-    background-color: #4A646C;
+    width: 800px;
     display: flex;
     flex-direction: column;
-
-    &__keyboard {
-
-        height: 300px;
-        margin: 0 auto;
-        display: flex;
-    }
+    background-image: url('../img/brushedsteel.jpg');
+    background-position: center center;
+    background-size: cover;
 
     &__controls {
         display: flex;
+        margin: 0 auto;
+    }
+
+    &__mastercontrols {
+        display: flex;
+        margin: 20px 10px;
+        border-radius: 5px;
+        border: 1px solid #ede5d4;
+        padding: 10px;
     }
 
     &__oscillator {
         display: none;
     }
 
+    &__oscillatorgroup {
+        margin: 20px 10px;
+        border-radius: 5px;
+        border: 1px solid #ede5d4;
+        padding: 10px;
+    }
+
     &__envelopes {
         display: flex;
-        margin-left: 40px;
-    }
-
-    &__key {
-
-        border: 1px solid black;
-        width: 50px;
-
-        &--major {
-            background-color: white;
-
-            &:active {
-                box-shadow: inset 1px 14px 34px -9px rgba(0,0,0,1);
-            }
-        }
-
-        &--minor {
-            background-color: black;
-            width: 30px;
-            height: 150px;
-            position: relative;
-            display: block;
-            margin-left: -20px;
-            margin-right: -20px;
-        }
-    }
-
-    &__selector {
-        li {
-            list-style: none;
-        }
-    }
-
-    &__radio {
-        display: none;
-    }
-
-    &__radiolabel {
-        margin: 5px;
-        display: flex;
-        font-size: 12px;
-        background-color: #FAEBD7;
-        width: 50px;
-        height: 50px;
-        border: 1px solid black;
-
-        .synth__radio:checked ~ & {
-            background-color: #f9fc33;
-        }
-    }
-
-    &__labeltext {
-        margin: auto;
+        margin: 20px 10px;
+        border-radius: 5px;
+        //margin-left: 40px;
+        border: 1px solid #ede5d4;
+        padding: 10px;
     }
 }

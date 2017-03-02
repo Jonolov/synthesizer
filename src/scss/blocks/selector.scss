@@ -1,0 +1,60 @@
+.selector {
+
+    li {
+        list-style: none;
+    }
+
+    &__oscillatorlabel {
+        text-transform: uppercase;
+        font-size: 12px;
+        padding: 5px;
+        color: #ede5d4;
+        text-align: center;
+    }
+
+    &__radio {
+        display: none;
+    }
+
+    &__radiolabel {
+        margin: 5px;
+        display: flex;
+        font-size: 12px;
+        background-color: #FAEBD7;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid black;
+
+        .selector__radio:checked ~ & {
+            background-color: #f9fc33;
+        }
+    }
+
+    // &__labeltext {
+    //     margin: auto;
+    // }
+
+    &__label {
+        background-position: center center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 100%;
+
+        &--sine {
+            background-image: url('../img/sine-wave.gif');
+        }
+
+        &--square {
+            background-image: url('../img/square-wave.gif');
+        }
+
+        &--triangle {
+            background-image: url('../img/triangular-wave.gif');
+        }
+
+        &--sawtooth {
+            background-image: url('../img/sawtooth-wave.gif');
+        }
+    }
+}

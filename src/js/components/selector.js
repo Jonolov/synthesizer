@@ -5,69 +5,84 @@ class Selector extends React.Component {
         super(props);
 
         this.state = ({
-            selectedOption: '0'
+            selectedOption: 'r0_' + this.props.oscillatorNr
         });
+
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
-    handleSelect = (e) => {
-        this.props.onSelect(0, e.target.id);
+    handleSelect(e) {
+
+        this.props.onSelect(this.props.oscillatorNr, e.target.value);
         this.setState({
             selectedOption: e.target.id
         });
     }
 
+    // componentWillRecieveProps(nextProps) {
+    //     this.setState({
+    //         oscillatorNr : nextProps.oscillatorNr
+    //     })
+    // }
+
     render() {
+        console.log('selected', this.state.selectedOption);
         return (
-            <div className="synth__selector">
+            <form className='selector'>
+                <div className='selector__oscillatorlabel'>Osc {this.props.oscillatorNr}</div>
                 <div>
                     <input
-                        className='synth__radio'
+                        className='selector__radio'
                         type='radio'
-                        id='0'
+                        id={'r0_' + this.props.oscillatorNr}
                         name='selector'
                         onClick={this.handleSelect}
-                        checked={this.state.selectedOption === '0'} />
-                    <label className='synth__radiolabel' htmlFor='0'>
-                        <div className='synth__labeltext'>Sine</div>
+                        checked={this.state.selectedOption === 'r0_' + this.props.oscillatorNr}
+                        value='0'/>
+                    <label className='selector__radiolabel' htmlFor={'r0_' + this.props.oscillatorNr}>
+                        <div className='selector__label selector__label--sine'></div>
                     </label>
                 </div>
                 <div>
                     <input
-                        className='synth__radio'
+                        className='selector__radio'
                         type='radio'
-                        id='1'
+                        id={'r1_' + this.props.oscillatorNr}
                         name='selector'
                         onClick={this.handleSelect}
-                        checked={this.state.selectedOption === '1'}/>
-                    <label className='synth__radiolabel' htmlFor="1">
-                        <div className='synth__labeltext'>Square</div>
+                        checked={this.state.selectedOption === 'r1_' + this.props.oscillatorNr}
+                        value='1'/>
+                    <label className='selector__radiolabel' htmlFor={'r1_' + this.props.oscillatorNr}>
+                        <div className='selector__label selector__label--square'></div>
                     </label>
                 </div>
                 <div>
                     <input
-                        className='synth__radio'
+                        className='selector__radio'
                         type='radio'
-                        id='2'
+                        id={'r2_' + this.props.oscillatorNr}
                         name='selector'
                         onClick={this.handleSelect}
-                        checked={this.state.selectedOption === '2'}/>
-                    <label className='synth__radiolabel' htmlFor="2">
-                        <div className='synth__labeltext'>Triangle</div>
+                        checked={this.state.selectedOption === 'r2_' + this.props.oscillatorNr}
+                        value='2'/>
+                    <label className='selector__radiolabel' htmlFor={'r2_' + this.props.oscillatorNr}>
+                        <div className='selector__label selector__label--triangle'></div>
                     </label>
                 </div>
                 <div>
                     <input
-                        className='synth__radio'
+                        className='selector__radio'
                         type='radio'
-                        id='3'
+                        id={'r3_' + this.props.oscillatorNr}
                         name='selector'
                         onClick={this.handleSelect}
-                        checked={this.state.selectedOption === '3'}/>
-                    <label className='synth__radiolabel' htmlFor="3">
-                        <div className='synth__labeltext'>Sawtooth</div>
+                        checked={this.state.selectedOption === 'r3_' + this.props.oscillatorNr}
+                        value='3'/>
+                    <label className='selector__radiolabel' htmlFor={'r3_' + this.props.oscillatorNr}>
+                        <div className='selector__label selector__label--sawtooth'></div>
                     </label>
                 </div>
-            </div>
+            </form>
         );
     }
 }

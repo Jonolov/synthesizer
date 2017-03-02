@@ -1,56 +1,37 @@
 .synth {
-  width: 600px;
-  background-color: #4A646C;
+  width: 800px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
-      flex-direction: column; }
-  .synth__keyboard {
-    height: 300px;
-    margin: 0 auto;
-    display: -ms-flexbox;
-    display: flex; }
+      flex-direction: column;
+  background-image: url(img/brushedsteel.jpg);
+  background-position: center center;
+  background-size: cover; }
   .synth__controls {
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    margin: 0 auto; }
+  .synth__mastercontrols {
+    display: -ms-flexbox;
+    display: flex;
+    margin: 20px 10px;
+    border-radius: 5px;
+    border: 1px solid #ede5d4;
+    padding: 10px; }
   .synth__oscillator {
     display: none; }
+  .synth__oscillatorgroup {
+    margin: 20px 10px;
+    border-radius: 5px;
+    border: 1px solid #ede5d4;
+    padding: 10px; }
   .synth__envelopes {
     display: -ms-flexbox;
     display: flex;
-    margin-left: 40px; }
-  .synth__key {
-    border: 1px solid black;
-    width: 50px; }
-    .synth__key--major {
-      background-color: white; }
-      .synth__key--major:active {
-        box-shadow: inset 1px 14px 34px -9px black; }
-    .synth__key--minor {
-      background-color: black;
-      width: 30px;
-      height: 150px;
-      position: relative;
-      display: block;
-      margin-left: -20px;
-      margin-right: -20px; }
-  .synth__selector li {
-    list-style: none; }
-  .synth__radio {
-    display: none; }
-  .synth__radiolabel {
-    margin: 5px;
-    display: -ms-flexbox;
-    display: flex;
-    font-size: 12px;
-    background-color: #FAEBD7;
-    width: 50px;
-    height: 50px;
-    border: 1px solid black; }
-    .synth__radio:checked ~ .synth__radiolabel {
-      background-color: #f9fc33; }
-  .synth__labeltext {
-    margin: auto; }
+    margin: 20px 10px;
+    border-radius: 5px;
+    border: 1px solid #ede5d4;
+    padding: 10px; }
 
 .rangeslider {
   margin: 20px 0;
@@ -73,23 +54,84 @@
     text-transform: uppercase;
     font-size: 12px;
     padding: 5px;
-    color: white; }
+    color: #ede5d4; }
 
 .rangeslider-vertical {
   margin: 20px auto;
   height: 150px;
-  max-width: 10px;
-  background: none; }
+  max-width: 5px;
+  background: black; }
   .rangeslider-vertical .rangeslider__fill {
     width: 100%;
     background: #27ae60;
     box-shadow: none;
     bottom: 0; }
   .rangeslider-vertical .rangeslider__handle {
-    width: 30px;
+    width: 20px;
     height: 10px;
-    left: -10px; }
+    left: -8px; }
     .rangeslider-vertical .rangeslider__handle:active {
       box-shadow: none; }
+
+.selector li {
+  list-style: none; }
+
+.selector__oscillatorlabel {
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 5px;
+  color: #ede5d4;
+  text-align: center; }
+
+.selector__radio {
+  display: none; }
+
+.selector__radiolabel {
+  margin: 5px;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  background-color: #FAEBD7;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid black; }
+  .selector__radio:checked ~ .selector__radiolabel {
+    background-color: #f9fc33; }
+
+.selector__label {
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%; }
+  .selector__label--sine {
+    background-image: url(img/sine-wave.gif); }
+  .selector__label--square {
+    background-image: url(img/square-wave.gif); }
+  .selector__label--triangle {
+    background-image: url(img/triangular-wave.gif); }
+  .selector__label--sawtooth {
+    background-image: url(img/sawtooth-wave.gif); }
+
+.keyboard {
+  height: 300px;
+  margin: 0 auto;
+  display: -ms-flexbox;
+  display: flex; }
+  .keyboard__key {
+    border: 1px solid black;
+    width: 50px; }
+    .keyboard__key--major {
+      background-color: #ede5d4; }
+      .keyboard__key--major:active {
+        box-shadow: inset 1px 14px 34px -9px black; }
+    .keyboard__key--minor {
+      background-color: black;
+      width: 30px;
+      height: 150px;
+      position: relative;
+      display: block;
+      margin-left: -20px;
+      margin-right: -20px; }
 
 /*# sourceMappingURL=index.css.map*/

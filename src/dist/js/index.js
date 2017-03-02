@@ -237,6 +237,7 @@
 	        };
 	
 	        _this.setDetune = function (osc, v) {
+	            console.log('osc ' + osc);
 	            var detunes = _this.state.detunes;
 	            detunes[osc] = v;
 	            _this.setState({
@@ -254,7 +255,8 @@
 	        };
 	
 	        _this.setWav = function (osc, v) {
-	            var waveforms = _this.state.waveforms;
+	            var state = Object.assign({}, _this.state);
+	            var waveforms = state.waveforms;
 	            waveforms[osc] = v;
 	
 	            _this.setState({
@@ -310,7 +312,8 @@
 	                0: -25
 	            },
 	            waveforms: {
-	                0: 0
+	                0: 0,
+	                1: 0
 	            },
 	            attack: 0.41,
 	            decay: 5,
@@ -330,29 +333,45 @@
 	    _createClass(Synth, [{
 	        key: 'render',
 	        value: function render() {
+	
+	            console.log(this.state.waveforms);
+	
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'synth' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'synth__controls' },
-	                    _react2.default.createElement(_oscillator2.default, { frequency: 440,
-	                        detune: this.state.detunes[0],
-	                        waveform: this.state.waveforms[0],
-	                        volume: this.state.volumes[0],
-	                        type: 'square',
-	                        envelope: this.envelope,
-	                        playing: this.state.playing }),
-	                    _react2.default.createElement(_oscillator2.default, { frequency: 440,
-	                        detune: this.state.detunes[1],
-	                        waveform: this.state.waveforms[0],
-	                        volume: this.state.volumes[0],
-	                        type: 'square',
-	                        envelope: this.envelope,
-	                        playing: this.state.playing }),
-	                    _react2.default.createElement(_selector2.default, { onSelect: this.setWav }),
-	                    _react2.default.createElement(Volume, { onVolChange: this.setVol }),
-	                    _react2.default.createElement(Detune, { onDetuneChange: this.setDetune }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'synth__mastercontrols' },
+	                        _react2.default.createElement(Volume, { onVolChange: this.setVol }),
+	                        _react2.default.createElement(Detune, { onDetuneChange: this.setDetune })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'synth__oscillatorgroup' },
+	                        _react2.default.createElement(_oscillator2.default, { frequency: 440,
+	                            detune: this.state.detunes[0],
+	                            waveform: this.state.waveforms[0],
+	                            volume: this.state.volumes[0],
+	                            type: 'square',
+	                            envelope: this.envelope,
+	                            playing: this.state.playing }),
+	                        _react2.default.createElement(_selector2.default, { onSelect: this.setWav, oscillatorNr: 0 })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'synth__oscillatorgroup' },
+	                        _react2.default.createElement(_oscillator2.default, { frequency: 440,
+	                            detune: this.state.detunes[1],
+	                            waveform: this.state.waveforms[1],
+	                            volume: this.state.volumes[0],
+	                            type: 'square',
+	                            envelope: this.envelope,
+	                            playing: this.state.playing }),
+	                        _react2.default.createElement(_selector2.default, { onSelect: this.setWav, oscillatorNr: 1 })
+	                    ),
 	                    _react2.default.createElement(_envelopes2.default, {
 	                        onAttackChange: this.setAttack,
 	                        onDecayChange: this.setDecay,
@@ -401,7 +420,7 @@
 	
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'synth__slider' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'rangeslider__label' },
@@ -450,7 +469,7 @@
 	
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'synth__slider' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'rangeslider__label' },
@@ -21916,7 +21935,7 @@
 	            tone: ''
 	        };
 	
-	        _this.notes = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3'];
+	        _this.notes = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4'];
 	        return _this;
 	    }
 	
@@ -21927,13 +21946,13 @@
 	
 	            var keys = this.notes.map(function (key, index) {
 	                if (key.indexOf('#') === -1) {
-	                    return _react2.default.createElement('div', { className: 'synth__key synth__key--major',
+	                    return _react2.default.createElement('div', { className: 'keyboard__key keyboard__key--major',
 	                        'data-value': key,
 	                        key: index,
 	                        onMouseDown: _this2.handleChange,
 	                        onMouseUp: _this2.handleRelease });
 	                } else {
-	                    return _react2.default.createElement('div', { className: 'synth__key synth__key--minor',
+	                    return _react2.default.createElement('div', { className: 'keyboard__key keyboard__key--minor',
 	                        'data-value': key,
 	                        key: index,
 	                        onMouseDown: _this2.handleChange,
@@ -21943,7 +21962,7 @@
 	
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'synth__keyboard' },
+	                { className: 'keyboard' },
 	                keys
 	            );
 	        }
@@ -21986,103 +22005,109 @@
 	
 	        var _this = _possibleConstructorReturn(this, (Selector.__proto__ || Object.getPrototypeOf(Selector)).call(this, props));
 	
-	        _this.handleSelect = function (e) {
-	            _this.props.onSelect(0, e.target.id);
-	            _this.setState({
-	                selectedOption: e.target.id
-	            });
+	        _this.state = {
+	            selectedOption: 'r0_' + _this.props.oscillatorNr
 	        };
 	
-	        _this.state = {
-	            selectedOption: '0'
-	        };
+	        _this.handleSelect = _this.handleSelect.bind(_this);
 	        return _this;
 	    }
 	
 	    _createClass(Selector, [{
+	        key: 'handleSelect',
+	        value: function handleSelect(e) {
+	
+	            this.props.onSelect(this.props.oscillatorNr, e.target.value);
+	            this.setState({
+	                selectedOption: e.target.id
+	            });
+	        }
+	
+	        // componentWillRecieveProps(nextProps) {
+	        //     this.setState({
+	        //         oscillatorNr : nextProps.oscillatorNr
+	        //     })
+	        // }
+	
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            console.log('selected', this.state.selectedOption);
 	            return _react2.default.createElement(
-	                'div',
-	                { className: 'synth__selector' },
+	                'form',
+	                { className: 'selector' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'selector__oscillatorlabel' },
+	                    'Osc ',
+	                    this.props.oscillatorNr
+	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement('input', {
-	                        className: 'synth__radio',
+	                        className: 'selector__radio',
 	                        type: 'radio',
-	                        id: '0',
+	                        id: 'r0_' + this.props.oscillatorNr,
 	                        name: 'selector',
 	                        onClick: this.handleSelect,
-	                        checked: this.state.selectedOption === '0' }),
+	                        checked: this.state.selectedOption === 'r0_' + this.props.oscillatorNr,
+	                        value: '0' }),
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: 'synth__radiolabel', htmlFor: '0' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'synth__labeltext' },
-	                            'Sine'
-	                        )
+	                        { className: 'selector__radiolabel', htmlFor: 'r0_' + this.props.oscillatorNr },
+	                        _react2.default.createElement('div', { className: 'selector__label selector__label--sine' })
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement('input', {
-	                        className: 'synth__radio',
+	                        className: 'selector__radio',
 	                        type: 'radio',
-	                        id: '1',
+	                        id: 'r1_' + this.props.oscillatorNr,
 	                        name: 'selector',
 	                        onClick: this.handleSelect,
-	                        checked: this.state.selectedOption === '1' }),
+	                        checked: this.state.selectedOption === 'r1_' + this.props.oscillatorNr,
+	                        value: '1' }),
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: 'synth__radiolabel', htmlFor: '1' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'synth__labeltext' },
-	                            'Square'
-	                        )
+	                        { className: 'selector__radiolabel', htmlFor: 'r1_' + this.props.oscillatorNr },
+	                        _react2.default.createElement('div', { className: 'selector__label selector__label--square' })
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement('input', {
-	                        className: 'synth__radio',
+	                        className: 'selector__radio',
 	                        type: 'radio',
-	                        id: '2',
+	                        id: 'r2_' + this.props.oscillatorNr,
 	                        name: 'selector',
 	                        onClick: this.handleSelect,
-	                        checked: this.state.selectedOption === '2' }),
+	                        checked: this.state.selectedOption === 'r2_' + this.props.oscillatorNr,
+	                        value: '2' }),
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: 'synth__radiolabel', htmlFor: '2' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'synth__labeltext' },
-	                            'Triangle'
-	                        )
+	                        { className: 'selector__radiolabel', htmlFor: 'r2_' + this.props.oscillatorNr },
+	                        _react2.default.createElement('div', { className: 'selector__label selector__label--triangle' })
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement('input', {
-	                        className: 'synth__radio',
+	                        className: 'selector__radio',
 	                        type: 'radio',
-	                        id: '3',
+	                        id: 'r3_' + this.props.oscillatorNr,
 	                        name: 'selector',
 	                        onClick: this.handleSelect,
-	                        checked: this.state.selectedOption === '3' }),
+	                        checked: this.state.selectedOption === 'r3_' + this.props.oscillatorNr,
+	                        value: '3' }),
 	                    _react2.default.createElement(
 	                        'label',
-	                        { className: 'synth__radiolabel', htmlFor: '3' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'synth__labeltext' },
-	                            'Sawtooth'
-	                        )
+	                        { className: 'selector__radiolabel', htmlFor: 'r3_' + this.props.oscillatorNr },
+	                        _react2.default.createElement('div', { className: 'selector__label selector__label--sawtooth' })
 	                    )
 	                )
 	            );

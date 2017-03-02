@@ -1,0 +1,29 @@
+.keyboard {
+    height: 300px;
+    margin: 0 auto;
+    display: flex;
+
+    &__key {
+
+        border: 1px solid black;
+        width: 50px;
+
+        &--major {
+            background-color: #ede5d4;
+
+            &:active {
+                box-shadow: inset 1px 14px 34px -9px rgba(0,0,0,1);
+            }
+        }
+
+        &--minor {
+            background-color: black;
+            width: 30px;
+            height: 150px;
+            position: relative;
+            display: block;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+    }
+}
