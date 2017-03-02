@@ -1,0 +1,95 @@
+.synth {
+  width: 600px;
+  background-color: #4A646C;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column; }
+  .synth__keyboard {
+    height: 300px;
+    margin: 0 auto;
+    display: -ms-flexbox;
+    display: flex; }
+  .synth__controls {
+    display: -ms-flexbox;
+    display: flex; }
+  .synth__oscillator {
+    display: none; }
+  .synth__envelopes {
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: 40px; }
+  .synth__key {
+    border: 1px solid black;
+    width: 50px; }
+    .synth__key--major {
+      background-color: white; }
+      .synth__key--major:active {
+        box-shadow: inset 1px 14px 34px -9px black; }
+    .synth__key--minor {
+      background-color: black;
+      width: 30px;
+      height: 150px;
+      position: relative;
+      display: block;
+      margin-left: -20px;
+      margin-right: -20px; }
+  .synth__selector li {
+    list-style: none; }
+  .synth__radio {
+    display: none; }
+  .synth__radiolabel {
+    margin: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 12px;
+    background-color: #FAEBD7;
+    width: 50px;
+    height: 50px;
+    border: 1px solid black; }
+    .synth__radio:checked ~ .synth__radiolabel {
+      background-color: #f9fc33; }
+  .synth__labeltext {
+    margin: auto; }
+
+.rangeslider {
+  margin: 20px 0;
+  position: relative;
+  background: #e6e6e6; }
+  .rangeslider .rangeslider__fill, .rangeslider .rangeslider__handle {
+    position: absolute; }
+  .rangeslider, .rangeslider .rangeslider__fill {
+    display: block;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3); }
+  .rangeslider .rangeslider__handle {
+    background: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute; }
+    .rangeslider .rangeslider__handle:active {
+      background: #999; }
+  .rangeslider__label {
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 5px;
+    color: white; }
+
+.rangeslider-vertical {
+  margin: 20px auto;
+  height: 150px;
+  max-width: 10px;
+  background: none; }
+  .rangeslider-vertical .rangeslider__fill {
+    width: 100%;
+    background: #27ae60;
+    box-shadow: none;
+    bottom: 0; }
+  .rangeslider-vertical .rangeslider__handle {
+    width: 30px;
+    height: 10px;
+    left: -10px; }
+    .rangeslider-vertical .rangeslider__handle:active {
+      box-shadow: none; }
+
+/*# sourceMappingURL=index.css.map*/
