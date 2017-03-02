@@ -8,7 +8,6 @@
 
         height: 300px;
         margin: 0 auto;
-        //background-color: red;
         display: flex;
     }
 
@@ -18,6 +17,11 @@
 
     &__oscillator {
         display: none;
+    }
+
+    &__envelopes {
+        display: flex;
+        margin-left: 40px;
     }
 
     &__key {
