@@ -21,7 +21,6 @@ class Oscillator extends React.Component {
         this.tone.volume.value = newProps.volume;
         this.tone.type = this.waves[newProps.waveform];
 
-
         if (newProps.playing) {
             this.tone.frequency.value = newProps.playing;
         }

@@ -6,7 +6,8 @@
       flex-direction: column;
   background-image: url(img/brushedsteel.jpg);
   background-position: center center;
-  background-size: cover; }
+  background-size: cover;
+  box-shadow: 1px 13px 43px 11px rgba(0, 0, 0, 0.75); }
   .synth__controls {
     display: -ms-flexbox;
     display: flex;
@@ -18,9 +19,9 @@
     border-radius: 5px;
     border: 1px solid #ede5d4;
     padding: 10px; }
-  .synth__oscillator {
-    display: none; }
   .synth__oscillatorgroup {
+    display: -ms-flexbox;
+    display: flex;
     margin: 20px 10px;
     border-radius: 5px;
     border: 1px solid #ede5d4;
@@ -117,21 +118,42 @@
   height: 300px;
   margin: 0 auto;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  position: relative;
+  background-color: black; }
   .keyboard__key {
+    cursor: pointer;
     border: 1px solid black;
-    width: 50px; }
+    width: 50px;
+    position: relative;
+    border-radius: 0px 0px 4px 4px; }
     .keyboard__key--major {
       background-color: #ede5d4; }
       .keyboard__key--major:active {
-        box-shadow: inset 1px 14px 34px -9px black; }
+        box-shadow: inset 1px 14px 34px -9px black;
+        top: 5px; }
     .keyboard__key--minor {
       background-color: black;
       width: 30px;
       height: 150px;
-      position: relative;
       display: block;
-      margin-left: -20px;
-      margin-right: -20px; }
+      margin-left: -16px;
+      margin-right: -16px;
+      z-index: 100;
+      position: relative; }
+      .keyboard__key--minor:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 3px;
+        right: 3px;
+        bottom: 20px;
+        border: 1px solid rgba(128, 128, 128, 0.4);
+        border-top: 0;
+        border-radius: 0px 0px 4px 4px; }
+      .keyboard__key--minor:active {
+        box-shadow: inset 1px 14px 34px -9px black; }
+        .keyboard__key--minor:active:before {
+          bottom: 15px; }
 
 /*# sourceMappingURL=index.css.map*/

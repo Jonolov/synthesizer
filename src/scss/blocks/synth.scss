@@ -5,6 +5,7 @@
     background-image: url('../img/brushedsteel.jpg');
     background-position: center center;
     background-size: cover;
+    box-shadow: 1px 13px 43px 11px rgba(0,0,0,0.75);
 
     &__controls {
         display: flex;
@@ -20,10 +21,11 @@
     }
 
     &__oscillator {
-        display: none;
+        //display: none;
     }
 
     &__oscillatorgroup {
+        display: flex;
         margin: 20px 10px;
         border-radius: 5px;
         border: 1px solid #ede5d4;

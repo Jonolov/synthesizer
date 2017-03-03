@@ -5,7 +5,7 @@ class Selector extends React.Component {
         super(props);
 
         this.state = ({
-            selectedOption: 'r0_' + this.props.oscillatorNr
+            selectedOption: 'r1_' + this.props.oscillatorNr
         });
 
         this.handleSelect = this.handleSelect.bind(this);
@@ -19,17 +19,10 @@ class Selector extends React.Component {
         });
     }
 
-    // componentWillRecieveProps(nextProps) {
-    //     this.setState({
-    //         oscillatorNr : nextProps.oscillatorNr
-    //     })
-    // }
-
     render() {
-        console.log('selected', this.state.selectedOption);
         return (
             <form className='selector'>
-                <div className='selector__oscillatorlabel'>Osc {this.props.oscillatorNr}</div>
+                <div className='selector__oscillatorlabel'>Osc {this.props.oscillatorNr + 1}</div>
                 <div>
                     <input
                         className='selector__radio'

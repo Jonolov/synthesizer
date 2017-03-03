@@ -221,7 +221,6 @@
 	        var _this = _possibleConstructorReturn(this, (Synth.__proto__ || Object.getPrototypeOf(Synth)).call(this, props));
 	
 	        _this.startNote = function (note) {
-	
 	            _this.setState({
 	                playing: note
 	            });
@@ -309,11 +308,12 @@
 	                1: 0
 	            },
 	            volumes: {
-	                0: -25
+	                0: -50,
+	                1: -50
 	            },
 	            waveforms: {
-	                0: 0,
-	                1: 0
+	                0: 1,
+	                1: 1
 	            },
 	            attack: 0.41,
 	            decay: 5,
@@ -334,8 +334,6 @@
 	        key: 'render',
 	        value: function render() {
 	
-	            console.log(this.state.waveforms);
-	
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'synth' },
@@ -344,13 +342,8 @@
 	                    { className: 'synth__controls' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'synth__mastercontrols' },
-	                        _react2.default.createElement(Volume, { onVolChange: this.setVol }),
-	                        _react2.default.createElement(Detune, { onDetuneChange: this.setDetune })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
 	                        { className: 'synth__oscillatorgroup' },
+	                        _react2.default.createElement(Volume, { onVolChange: this.setVol, oscillatorNr: 0 }),
 	                        _react2.default.createElement(_oscillator2.default, { frequency: 440,
 	                            detune: this.state.detunes[0],
 	                            waveform: this.state.waveforms[0],
@@ -363,10 +356,12 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'synth__oscillatorgroup' },
+	                        _react2.default.createElement(Volume, { onVolChange: this.setVol, oscillatorNr: 1 }),
+	                        _react2.default.createElement(Detune, { onDetuneChange: this.setDetune }),
 	                        _react2.default.createElement(_oscillator2.default, { frequency: 440,
 	                            detune: this.state.detunes[1],
 	                            waveform: this.state.waveforms[1],
-	                            volume: this.state.volumes[0],
+	                            volume: this.state.volumes[1],
 	                            type: 'square',
 	                            envelope: this.envelope,
 	                            playing: this.state.playing }),
@@ -383,7 +378,7 @@
 	                        release: this.state.release
 	                    })
 	                ),
-	                _react2.default.createElement(_keyboard2.default, { onDown: this.startNote, onUp: this.stopNote })
+	                _react2.default.createElement(_keyboard2.default, { onDown: this.startNote, onUp: this.stopNote, onKeyDown: this.startNote })
 	            );
 	        }
 	    }]);
@@ -404,11 +399,11 @@
 	                value: value
 	            });
 	
-	            _this2.props.onVolChange(0, value);
+	            _this2.props.onVolChange(_this2.props.oscillatorNr, value);
 	        };
 	
 	        _this2.state = {
-	            value: -25 /** Start value **/
+	            value: -50 /** Start value **/
 	        };
 	        return _this2;
 	    }
@@ -424,13 +419,13 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'rangeslider__label' },
-	                    'Volume'
+	                    'Vol'
 	                ),
 	                _react2.default.createElement(_reactRangeslider2.default, {
 	                    value: value,
 	                    orientation: 'vertical',
 	                    onChange: this.handleChange,
-	                    min: -50,
+	                    min: -100,
 	                    max: 0
 	                })
 	            );
@@ -453,7 +448,7 @@
 	                value: value
 	            });
 	
-	            _this3.props.onDetuneChange(0, value);
+	            _this3.props.onDetuneChange(1, value);
 	        };
 	
 	        _this3.state = {
@@ -473,7 +468,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'rangeslider__label' },
-	                    'Detune'
+	                    'Tune'
 	                ),
 	                _react2.default.createElement(_reactRangeslider2.default, {
 	                    value: value,
@@ -21906,6 +21901,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _tone = __webpack_require__(6);
+	
+	var _tone2 = _interopRequireDefault(_tone);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21922,24 +21921,53 @@
 	
 	        var _this = _possibleConstructorReturn(this, (Keyboard.__proto__ || Object.getPrototypeOf(Keyboard)).call(this, props));
 	
-	        _this.handleChange = function (e) {
-	
-	            _this.props.onDown(e.target.dataset.value);
-	        };
-	
-	        _this.handleRelease = function () {
-	            _this.props.onUp('');
-	        };
-	
 	        _this.state = {
 	            tone: ''
 	        };
 	
 	        _this.notes = ['C3', 'C#3', 'D3', 'D#3', 'E3', 'F3', 'F#3', 'G3', 'G#3', 'A3', 'A#3', 'B3', 'C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4'];
+	
+	        _this.handleMouseDown = _this.handleMouseDown.bind(_this);
+	        _this.onKeyDown = _this.onKeyDown.bind(_this);
+	        _this.handleRelease = _this.handleRelease.bind(_this);
 	        return _this;
 	    }
 	
 	    _createClass(Keyboard, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            document.addEventListener('keydown', this.onKeyDown);
+	            document.addEventListener('keyup', this.handleRelease);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            document.removeEventListener('keydown', this.onKeyDown);
+	            document.removeEventListener('keyup', this.handleRelease);
+	        }
+	    }, {
+	        key: 'onKeyDown',
+	        value: function onKeyDown(e) {
+	            document.addEventListener('keydown', this.onKeyDown);
+	            var note = _tone2.default.Frequency(e.keyCode, 'midi').toNote();
+	
+	            for (var i = this.notes.length - 1; i >= 0; i--) {
+	                if (this.notes[i] === note) {
+	                    this.props.onKeyDown(note);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'handleMouseDown',
+	        value: function handleMouseDown(e) {
+	            this.props.onDown(e.target.dataset.value);
+	        }
+	    }, {
+	        key: 'handleRelease',
+	        value: function handleRelease() {
+	            this.props.onUp('');
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
@@ -21949,12 +21977,16 @@
 	                    return _react2.default.createElement('div', { className: 'keyboard__key keyboard__key--major',
 	                        'data-value': key,
 	                        key: index,
-	                        onMouseDown: _this2.handleChange,
+	                        onKeyDown: _this2.onKeyDown,
+	                        onKeyUp: _this2.handleRelease,
+	                        onMouseDown: _this2.handleMouseDown,
 	                        onMouseUp: _this2.handleRelease });
 	                } else {
 	                    return _react2.default.createElement('div', { className: 'keyboard__key keyboard__key--minor',
 	                        'data-value': key,
 	                        key: index,
+	                        onKeyDown: _this2.onKeyDown,
+	                        onKeyUp: _this2.handleRelease,
 	                        onMouseDown: _this2.handleChange,
 	                        onMouseUp: _this2.handleRelease });
 	                }
@@ -22006,7 +22038,7 @@
 	        var _this = _possibleConstructorReturn(this, (Selector.__proto__ || Object.getPrototypeOf(Selector)).call(this, props));
 	
 	        _this.state = {
-	            selectedOption: 'r0_' + _this.props.oscillatorNr
+	            selectedOption: 'r1_' + _this.props.oscillatorNr
 	        };
 	
 	        _this.handleSelect = _this.handleSelect.bind(_this);
@@ -22022,17 +22054,9 @@
 	                selectedOption: e.target.id
 	            });
 	        }
-	
-	        // componentWillRecieveProps(nextProps) {
-	        //     this.setState({
-	        //         oscillatorNr : nextProps.oscillatorNr
-	        //     })
-	        // }
-	
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            console.log('selected', this.state.selectedOption);
 	            return _react2.default.createElement(
 	                'form',
 	                { className: 'selector' },
@@ -22040,7 +22064,7 @@
 	                    'div',
 	                    { className: 'selector__oscillatorlabel' },
 	                    'Osc ',
-	                    this.props.oscillatorNr
+	                    this.props.oscillatorNr + 1
 	                ),
 	                _react2.default.createElement(
 	                    'div',

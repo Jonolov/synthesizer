@@ -18,11 +18,12 @@ class Synth extends React.Component {
                 1: 0
             },
             volumes: {
-                0: -25
+                0: -50,
+                1: -50
             },
             waveforms: {
-                0: 0,
-                1: 0
+                0: 1,
+                1: 1
             },
             attack: 0.41,
             decay: 5,
@@ -39,7 +40,6 @@ class Synth extends React.Component {
     }
 
     startNote = (note) => {
-
         this.setState({
             playing: note
         });
@@ -120,36 +120,36 @@ class Synth extends React.Component {
 
     render() {
 
-        console.log(this.state.waveforms);
-
         return (
             <div className='synth'>
                 <div className='synth__controls'>
-                    <div className='synth__mastercontrols'>
-                        <Volume onVolChange={this.setVol}/>
-                        <Detune onDetuneChange={this.setDetune}/>
-                    </div>
+                    {/*<div className='synth__mastercontrols'>
+                        <div className='synth__oscillatorcontrols'>
+                            <Volume onVolChange={this.setVol}/>
+                        </div>
+                    </div>*/}
 
                     <div className='synth__oscillatorgroup'>
+                        <Volume onVolChange={this.setVol} oscillatorNr={0}/>
                         <Oscillator frequency={440}
                             detune={ this.state.detunes[0] }
                             waveform={ this.state.waveforms[0] }
                             volume={ this.state.volumes[0] }
                             type={ 'square' }
                             envelope={this.envelope}
-                            playing={this.state.playing}>
-                        </Oscillator>
+                            playing={this.state.playing}/>
                         <Selector onSelect={this.setWav} oscillatorNr={0}/>
                     </div>
                     <div className='synth__oscillatorgroup'>
+                        <Volume onVolChange={this.setVol} oscillatorNr={1}/>
+                        <Detune onDetuneChange={this.setDetune}/>
                         <Oscillator frequency={440}
                             detune={ this.state.detunes[1] }
                             waveform={ this.state.waveforms[1] }
-                            volume={ this.state.volumes[0] }
+                            volume={ this.state.volumes[1] }
                             type={ 'square' }
                             envelope={this.envelope}
-                            playing={this.state.playing}>
-                        </Oscillator>
+                            playing={this.state.playing}/>
                         <Selector onSelect={this.setWav} oscillatorNr={1}/>
                     </div>
 
@@ -165,7 +165,7 @@ class Synth extends React.Component {
                     />
                 </div>
 
-                <Keyboard onDown={this.startNote} onUp={this.stopNote}/>
+                <Keyboard onDown={this.startNote} onUp={this.stopNote} onKeyDown={this.startNote}/>
             </div>
         );
     }
@@ -175,7 +175,7 @@ class Volume extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            value: -25 /** Start value **/
+            value: -50 /** Start value **/
         };
     }
 
@@ -184,19 +184,19 @@ class Volume extends React.Component {
             value: value
         });
 
-        this.props.onVolChange(0, value);
+        this.props.onVolChange(this.props.oscillatorNr, value);
     }
 
     render() {
         let { value } = this.state;
         return (
             <div className='synth__slider'>
-                <div className='rangeslider__label'>Volume</div>
+                <div className='rangeslider__label'>Vol</div>
                 <Slider
                     value={value}
                     orientation="vertical"
                     onChange={this.handleChange}
-                    min={-50}
+                    min={-100}
                     max={0}
                 />
             </div>
@@ -217,14 +217,14 @@ class Detune extends React.Component {
             value: value
         });
 
-        this.props.onDetuneChange(0, value);
+        this.props.onDetuneChange(1, value);
     }
 
     render() {
         let { value } = this.state;
         return (
             <div className='synth__slider'>
-                <div className='rangeslider__label'>Detune</div>
+                <div className='rangeslider__label'>Tune</div>
                 <Slider
                     value={value}
                     orientation="vertical"
