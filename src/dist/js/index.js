@@ -21961,6 +21961,8 @@
 	        key: 'handleMouseDown',
 	        value: function handleMouseDown(e) {
 	            this.props.onDown(e.target.dataset.value);
+	
+	            console.log(e.target.dataset.value);
 	        }
 	    }, {
 	        key: 'handleRelease',
@@ -21987,7 +21989,7 @@
 	                        key: index,
 	                        onKeyDown: _this2.onKeyDown,
 	                        onKeyUp: _this2.handleRelease,
-	                        onMouseDown: _this2.handleChange,
+	                        onMouseDown: _this2.handleMouseDown,
 	                        onMouseUp: _this2.handleRelease });
 	                }
 	            });

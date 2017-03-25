@@ -43,6 +43,8 @@ class Keyboard extends React.Component {
         this.props.onDown(
             e.target.dataset.value
         );
+
+        console.log(e.target.dataset.value);
     }
 
     handleRelease() {
@@ -71,7 +73,7 @@ class Keyboard extends React.Component {
                         key={index}
                         onKeyDown={this.onKeyDown}
                         onKeyUp={this.handleRelease}
-                        onMouseDown={this.handleChange}
+                        onMouseDown={this.handleMouseDown}
                         onMouseUp={this.handleRelease}>
                     </div>
                 )
