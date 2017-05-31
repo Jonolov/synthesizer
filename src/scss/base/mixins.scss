@@ -1,0 +1,37 @@
+// @function palette($palette, $tone: 'default') {
+//     @return map-get(map-get($palettes, $palette), $tone);
+// }
+
+// @mixin media($key) {
+//     @if map-has-key($breakpoints, $key) {
+//         @media (min-width: map-get($breakpoints, $key)) {
+//             @content;
+//         }
+//     } @else {
+//         @error 'Unfortunately, no value could be retrieved from `#{$breakpoints}`. '
+//         + 'Please make sure it is defined in `$breakpoints` map.';
+//     }
+// }
+
+// @mixin media-max($key) {
+//     @if map-has-key($breakpoints, $key) {
+//         @media (max-width: (map-get($breakpoints, $key) - 1)) {
+//             @content;
+//         }
+//     } @else {
+//         @error 'Unfortunately, no value could be retrieved from `#{$breakpoints}`. '
+//         + 'Please make sure it is defined in `$breakpoints` map.';
+//     }
+// }
+
+// @mixin clearfix {
+//     &::after {
+//         content: '';
+//         display: table;
+//         clear: both;
+//     }
+// }
+
+// @function width($width) {
+//     @return map-get($widths, $width);
+// }

@@ -1,0 +1,27 @@
+// * {
+//     box-sizing: border-box;
+// }
+
+// html, select {
+//     font-size: 62.5%;
+// }
+
+// body {
+//     overflow-x: hidden;
+//     font-size: 1.6rem;
+//     color: palette(blue);
+//     margin-top: 50px;
+
+//     @include media(lg) {
+//         margin-top: 0;
+//     }
+
+//     &.NavActive {
+//         overflow: hidden;
+//     }
+// }
+
+// a {
+//     text-decoration: none;
+//     color: inherit;
+// }
