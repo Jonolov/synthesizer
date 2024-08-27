@@ -39,7 +39,7 @@
     "resolve-url-loader": "1.6.0",
     "sass-loader": "4.0.0",
     "style-loader": "0.13.1",
-    "webpack": "1.13.2"
+    "webpack": "5.94.0"
   },
   "scripts": {
     "test": "mocha"
